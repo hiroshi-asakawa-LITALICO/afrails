@@ -13,6 +13,9 @@ WORKDIR /webapp
 ADD Gemfile /webapp/Gemfile
 ADD Gemfile.lock /webapp/Gemfile.lock
 
+# bundlerをinstallする処理追加
+RUN gem install bundler
+
 # bundle installの実行
 RUN bundle install
 
