@@ -1,0 +1,24 @@
+version: '3'
+services:
+  web:
+    build: .
+    volumes:
+      - /app/log # persist logs
+    depends_on:
+      - db
+
+  nginx:
+    build: containers/nginx
+    ports:
+      - "80:80"
+    volumes:
+      - .:/app
+    depends_on:
+      - web
+
+  db:
+    image: mysql:latest
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - 3306:3306
