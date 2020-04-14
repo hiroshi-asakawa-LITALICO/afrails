@@ -1,20 +1,23 @@
 FROM ruby:2.6.3
+
+# リポジトリを更新し依存モジュールをインストール
 RUN apt-get update -qq && \
-    apt-get install -y build-essential libpq-dev nodejs
+    apt-get install -y build-essential \
+                       nodejs
 
-# Rails App
-RUN mkdir /app
-WORKDIR /app
-ADD Gemfile /app/Gemfile
-ADD Gemfile.lock /app/Gemfile.lock
+# ルート直下にwebappという名前で作業ディレクトリを作成（コンテナ内のアプリケーションディレクトリ）
+RUN mkdir /webapp
+WORKDIR /webapp
+
+# ホストのGemfileとGemfile.lockをコンテナにコピー
+ADD Gemfile /webapp/Gemfile
+ADD Gemfile.lock /webapp/Gemfile.lock
+
+# bundle installの実行
 RUN bundle install
-ADD . /app
+
+# ホストのアプリケーションディレクトリ内をすべてコンテナにコピー
+ADD . /webapp
+
+# puma.sockを配置するディレクトリを作成
 RUN mkdir -p tmp/sockets
-
-# Expose volumes to frontend
-VOLUME /app/public
-VOLUME /app/tmp
-
-# Start Server
-# TODO: environment
-CMD bundle exec puma

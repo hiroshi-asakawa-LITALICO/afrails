@@ -1,4 +1,10 @@
-FROM nginx:1.11.3
+FROM nginx:1.15.8
+
+# インクルード用のディレクトリ内を削除
 RUN rm -f /etc/nginx/conf.d/*
-ADD nginx.conf /etc/nginx/conf.d/app.conf
+
+# Nginxの設定ファイルをコンテナにコピー
+ADD nginx.conf /etc/nginx/conf.d/webapp.conf
+
+# ビルド完了後にNginxを起動
 CMD /usr/sbin/nginx -g 'daemon off;' -c /etc/nginx/nginx.conf
