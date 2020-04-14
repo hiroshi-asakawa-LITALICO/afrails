@@ -26,3 +26,6 @@
 
 # db.env
 db.env
+
+# vendor/bundle
+vendor/bundle
