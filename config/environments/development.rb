@@ -50,12 +50,11 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  # local設定かなこれは
-  # config.log_level = :debug
-  #
-  # logger           = ActiveSupport::Logger.new(STDOUT)
-  # logger.formatter = config.log_formatter
-  # config.logger    = ActiveSupport::TaggedLogging.new(logger)
+  config.log_level = :debug
+
+  logger           = ActiveSupport::Logger.new(STDOUT)
+  logger.formatter = config.log_formatter
+  config.logger    = ActiveSupport::TaggedLogging.new(logger)
 
   # dockerにbettor errorsのログを出す
   BetterErrors::Middleware.allow_ip! "0.0.0.0/0"
