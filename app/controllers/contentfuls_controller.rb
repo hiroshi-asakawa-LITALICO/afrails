@@ -1,4 +1,4 @@
-class ContentfulsController < ActionController::API
+class ContentfulsController < ApplicationController
   def index
     foo = Contentful::Foo.first
 
